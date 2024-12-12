@@ -1,7 +1,7 @@
-.ld-button{
+.ld-button {
     font-family: var(--ld-font-family-base);
     background-color: var(--ld-color-primary);
-    font-size: calc( var(--ld-font-size-base) + 8px );
+    font-size: calc(var(--ld-font-size-base) + 8px);
     color: white;
     font-weight: 800;
     padding: 20px;
@@ -10,14 +10,15 @@
     width: 100%;
     cursor: pointer;
     transition: background-color 0.5s;
+    text-decoration: none;
 }
 
-.ld-button.-small{
-    font-size: calc( var(--ld-font-size-base) + 4px );
+.ld-button.-small {
+    font-size: calc(var(--ld-font-size-base) + 4px);
     font-weight: 600;
     padding: 12px 27px;
 }
 
-.ld-button:hover{
+.ld-button:hover {
     background-color: var(--ld-color-primary-light);
 }

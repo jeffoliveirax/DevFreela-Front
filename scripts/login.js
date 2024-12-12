@@ -1,9 +1,9 @@
-function checkIfAnyRoleIsChecked(){
+function checkIfAnyRoleIsChecked() {
     let list = document.getElementsByName("role");
     let counter = 0;
 
-    for(let radioButton of list){
-        if(radioButton.checked === false){
+    for (let radioButton of list) {
+        if (radioButton.checked === false) {
             counter++;
         }
     }
@@ -13,8 +13,12 @@ function checkIfAnyRoleIsChecked(){
 
 function cadastrar() {
     // Checa se alguma role foi checada.
-    if(checkIfAnyRoleIsChecked() === false){
-        alert('Marque alguma role!');
+    if (checkIfAnyRoleIsChecked() === false) {
+        Swal.fire(
+            'Algo de errado...',
+            'Marque alguma role!',
+            'error'
+        )
         return;
     }
 
@@ -29,19 +33,27 @@ function cadastrar() {
 
     // Enviar para API
     fetch("https://622cd1e6087e0e041e147214.mockapi.io/api/users", {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        alert('Cadastrado com sucesso!');
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            Swal.fire({
+                title: 'Bom Trabalho!',
+                text: "Cadastrado com sucesso!",
+                icon: 'success',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem("userName", response.fullName);
+                    localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
+                    localStorage.setItem("idClient", response.id);
 
-        localStorage.setItem("userName", response.fullName);
-        localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-
-        window.location.href = "list.html";
-    })
+                    window.location.href = "list.html";
+                }
+            })
+        })
 }
